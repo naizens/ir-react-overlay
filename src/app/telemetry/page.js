@@ -17,10 +17,8 @@ const Telemetry = () => {
 					throw new Error("Network response was not ok.");
 				}
 				const data = await res.json();
-
 				// Convert speed to km/h and round it
 				data.speed = Math.round(data.speed * 3.6);
-
 				setTelemetry(data);
 			} catch (error) {
 				console.error("Error fetching telemetry data:", error);
@@ -31,14 +29,13 @@ const Telemetry = () => {
 		};
 
 		const startFetching = () => {
-			intervalId = setInterval(() => {
-				fetchTelemetry();
-			}, 1000 / 30); // ~33ms for 30 FPS
+			intervalId = setInterval(fetchTelemetry, 1000 / 30); // ~33ms for 30 FPS
 		};
-
 		startFetching();
 
-		return () => clearInterval(intervalId); // Cleanup on unmount
+		return () => {
+			clearInterval(intervalId);
+		};
 	}, []);
 
 	// Format percentage to always show two digits, even for 100
@@ -55,6 +52,7 @@ const Telemetry = () => {
 		const normalizedAngle = normalizeWheelAngle(angle);
 		return `rotate(${normalizedAngle}deg)`;
 	};
+
 	const getGearDisplay = () => {
 		if (telemetry.gear === 0) {
 			return "N";
@@ -64,6 +62,7 @@ const Telemetry = () => {
 			return telemetry.gear;
 		}
 	};
+
 	// SVG circle styling and animation
 	const svgStyle = {
 		transform: `rotate(${normalizeWheelAngle(telemetry.wheelangle)}deg)`,
@@ -71,36 +70,54 @@ const Telemetry = () => {
 	};
 
 	return (
-		<div className="p-1 bg-slate-800 w-fit h-fit rounded-xl m-4 drag-region">
+		<div className="p-1 bg-slate-800 w-fit h-fit rounded-xl drag-region">
 			{loading ? (
 				<p>Loading...</p>
 			) : telemetry.error ? (
 				<p>{telemetry.error}</p>
 			) : (
-				<div className="flex space-x-1 ">
-					<div className="flex flex-col items-center space-y-2 w-14">
-						<p className="text-4xl font-bold">{getGearDisplay()}</p>
-						<p className="text-xs">{telemetry.speed} km/h</p>
+				<div className="flex space-x-0.5 w-full h-full">
+					<div className="flex flex-col items-center space-y-0.5 w-16 h-full">
+						<p className="text-6xl font-bold">{getGearDisplay()}</p>
+						<p className="text-sm font-semibold">{telemetry.speed} km/h</p>
 					</div>
-					<div className="flex flex-col items-center w-4">
-						<p className="text-xs">{formatPercentage(telemetry.brake)}</p>
-						<div className="h-full w-2 bg-gray-500 rounded-full overflow-hidden relative">
-							<div
-								className="absolute bottom-0 left-0 bg-red-700"
-								style={{ height: `${telemetry.brake}%`, width: "100%" }}
-							></div>
+					<div className="flex">
+						<div className="flex flex-col items-center w-4">
+							<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+								<div
+									className="absolute bottom-0 left-0 bg-blue-700"
+									style={{ height: `${telemetry.clutch}%`, width: "100%" }}
+								></div>
+							</div>
+							<p className="text-xs font-bold">
+								{formatPercentage(telemetry.clutch)}
+							</p>
+						</div>
+						<div className="flex flex-col items-center w-4">
+							<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+								<div
+									className="absolute bottom-0 left-0 bg-red-700"
+									style={{ height: `${telemetry.brake}%`, width: "100%" }}
+								></div>
+							</div>
+							<p className="text-xs font-bold">
+								{formatPercentage(telemetry.brake)}
+							</p>
+						</div>
+						<div className="flex flex-col items-center w-4">
+							<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+								<div
+									className="absolute bottom-0 left-0 bg-green-700"
+									style={{ height: `${telemetry.throttle}%`, width: "100%" }}
+								></div>
+							</div>
+							<p className="text-xs font-bold">
+								{formatPercentage(telemetry.throttle)}
+							</p>
 						</div>
 					</div>
-					<div className="flex flex-col items-center w-4">
-						<p className="text-xs">{formatPercentage(telemetry.throttle)}</p>
-						<div className="h-full w-2 bg-gray-500 rounded-full overflow-hidden relative">
-							<div
-								className="absolute bottom-0 left-0 bg-green-700"
-								style={{ height: `${telemetry.throttle}%`, width: "100%" }}
-							></div>
-						</div>
-					</div>
-					<div className="h-16 w-16">
+
+					<div className="h-20 w-20">
 						<svg
 							viewBox="-10 -10 20 20"
 							className="left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"
