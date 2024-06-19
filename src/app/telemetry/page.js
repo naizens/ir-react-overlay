@@ -22,7 +22,7 @@ const Telemetry = () => {
 				setTelemetry(data);
 			} catch (error) {
 				console.error("Error fetching telemetry data:", error);
-				setTelemetry({ error: "Failed to fetch telemetry data." });
+				setTelemetry({ error: "iRacing is not running" });
 			} finally {
 				setLoading(false);
 			}
