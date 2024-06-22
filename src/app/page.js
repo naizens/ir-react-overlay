@@ -33,7 +33,7 @@ const HomePage = () => {
 					<input
 						type="url"
 						className="w-full px-2 font-normal"
-						value="http://127.0.0.1:8888/telemetry"
+						value="http://localhost:3000/telemetry"
 					></input>
 					<button
 						title="Open overlay"
