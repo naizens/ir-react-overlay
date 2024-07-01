@@ -1,0 +1,12 @@
+appId: com.example.nextron
+productName: Nextron iRacing Overlay
+copyright: Copyright © 2024 Niclas Heide
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+publish: null

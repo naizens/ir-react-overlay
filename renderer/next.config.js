@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
 	output: "export",
+	distDir: process.env.NODE_ENV === "production" ? "../app" : ".next",
+	trailingSlash: true,
 	images: {
 		unoptimized: true,
 	},
@@ -12,14 +14,7 @@ const nextConfig = {
 			},
 		];
 	},
-	webpack: (config, { isServer }) => {
-		if (!isServer) {
-			config.resolve.alias["fs"] = false;
-			config.resolve.alias["path"] = false;
-			config.resolve.alias["electron"] = false;
-		}
+	webpack: (config) => {
 		return config;
 	},
 };
-
-export default nextConfig;
