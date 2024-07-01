@@ -88,6 +88,7 @@ let port;
 			inputsWindow.setIgnoreMouseEvents(true);
 			inputsWindow.show(); // Sicherstellen, dass das Fenster angezeigt wird
 			inputsWindow.focus(); // Fokus auf das Fenster setzen
+			inputsWindow.setAlwaysOnTop(true); // Immer im Vordergrund
 		}
 	});
 
