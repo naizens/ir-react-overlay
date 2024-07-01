@@ -39,7 +39,7 @@ export default function Inputs() {
 		};
 
 		const startFetching = () => {
-			intervalId = setInterval(fetchTelemetry, 1000 / 30); // ~33ms for 30 FPS
+			intervalId = setInterval(fetchTelemetry, 1000 / 60); // ~33ms for 30 FPS
 		};
 		startFetching();
 
@@ -84,7 +84,7 @@ export default function Inputs() {
 				<title>IR-Overlay</title>
 				<meta name="description" content="IR-Overlay by Niclas Heide" />
 			</Head>
-			<div className="p-1 bg-slate-800 w-fit h-fit rounded-xl drag-region">
+			<div className="p-1 bg-slate-800 w-fit h-fit rounded-xl drag-region text-white">
 				{loading ? (
 					<p>Loading...</p>
 				) : telemetry.error ? (
@@ -92,7 +92,9 @@ export default function Inputs() {
 				) : (
 					<div className="flex space-x-0.5 w-full h-full">
 						<div className="flex flex-col items-center space-y-0.5 w-16 h-full">
-							<p className="text-6xl font-bold">{getGearDisplay()}</p>
+							<p className="text-6xl font-bold text-yellow-400">
+								{getGearDisplay()}
+							</p>
 							<p className="text-sm font-semibold">{telemetry.speed} km/h</p>
 						</div>
 						<div className="flex">
@@ -149,7 +151,7 @@ export default function Inputs() {
 									x1="0"
 									y1="9"
 									x2="0"
-									y2="-9"
+									y2="0"
 									stroke="#4B5563"
 									strokeWidth="2"
 								/>
