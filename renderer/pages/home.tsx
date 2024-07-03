@@ -27,6 +27,86 @@ export default function HomePage() {
 				<meta name="description" content="IR-Overlay by Niclas Heide" />
 			</Head>
 			<div className="text-black w-screen h-screen">
+				<nav className="drag-region flex items-center justify-between bg-slate-950 text-white shadow-md shadow-black/30">
+					<div className="flex items-center space-x-4">
+						<div className="px-4 py-3 content-center hover:bg-slate-800 group no-drag-region">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth="3"
+								stroke="currentColor"
+								className="size-5 group-hover:scale-125 transition-all duration-200"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M4 6h16M4 12h16m-7 6h7"
+								/>
+							</svg>
+						</div>
+						<span>IR-Overlay</span>
+					</div>
+					<div className="flex h-full">
+						<div
+							id="minimizeApp"
+							className="px-4 py-3 group hover:bg-blue-950 transition-all duration-200 content-center no-drag-region"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={3}
+								stroke="currentColor"
+								className="size-5 group-hover:stroke-blue-600 group-hover:scale-125 transition-all duration-200"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M5 12h14"
+								/>
+							</svg>
+						</div>
+						<div
+							id="maximizeApp"
+							className="px-4 py-3 group hover:bg-yellow-950 transition-all duration-200 content-center no-drag-region	"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={3}
+								stroke="currentColor"
+								className="size-5 group-hover:stroke-yellow-600 group-hover:scale-125 transition-all duration-200 ease-in-out"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"
+								/>
+							</svg>
+						</div>
+						<div
+							id="closeApp"
+							className="px-4 py-2 group hover:bg-red-950 transition-all duration-200 content-center no-drag-region"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="3"
+								stroke="currentColor"
+								className="size-5 group-hover:stroke-red-600 group-hover:scale-125 transition-all duration-200"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M6 18 18 6M6 6l12 12"
+								/>
+							</svg>
+						</div>
+					</div>
+				</nav>
 				{error && <p>Error: {error}</p>}
 				<div className="flex flex-col space-y-3 w-full p-4">
 					<div className="flex h-10 w-full rounded-md overflow-hidden border">
