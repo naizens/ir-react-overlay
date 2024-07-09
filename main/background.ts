@@ -11,12 +11,12 @@ if (isProd) {
 	app.setPath("userData", `${app.getPath("userData")} (development)`);
 }
 
-let port;
+let port: string | number;
 
 (async () => {
 	await app.whenReady();
 
-	var splashWindow = createWindow("splash", {
+	const splashWindow = createWindow("splash", {
 		width: 500,
 		height: 300,
 		transparent: true,
@@ -36,11 +36,12 @@ let port;
 		width: 800,
 		height: 600,
 		show: false,
+		frame: false,
 		webPreferences: {
+			devTools: true,
 			preload: path.join(__dirname, "preload.js"),
 			contextIsolation: true,
 			webSecurity: true,
-			devTools: true,
 		},
 	});
 
@@ -57,12 +58,29 @@ let port;
 		alwaysOnTop: true,
 		transparent: true,
 		frame: false,
+		resizable: false,
 		show: false,
 		titleBarOverlay: false,
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 			contextIsolation: true,
 		},
+	});
+
+	ipcMain.on("minimizeApp", () => {
+		mainWindow.minimize();
+	});
+
+	ipcMain.on("maximizeApp", () => {
+		if (mainWindow.isMaximized()) {
+			mainWindow.unmaximize();
+		} else {
+			mainWindow.maximize();
+		}
+	});
+
+	ipcMain.on("closeApp", () => {
+		mainWindow.close();
 	});
 
 	ipcMain.on("open-inputs-window", () => {

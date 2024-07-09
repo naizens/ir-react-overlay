@@ -20,6 +20,16 @@ export default function HomePage() {
 		window.ipc.send("unlock-telemetry-window", null);
 	};
 
+	const minimizeApp = () => {
+		window.ipc.send("minimizeApp", null);
+	};
+	const maximizeApp = () => {
+		window.ipc.send("maximizeApp", null);
+	};
+	const closeApp = () => {
+		window.ipc.send("closeApp", null);
+	};
+
 	return (
 		<React.Fragment>
 			<Head>
@@ -50,26 +60,31 @@ export default function HomePage() {
 					<div className="flex h-full">
 						<div
 							id="minimizeApp"
-							className="px-4 py-3 group hover:bg-blue-950 transition-all duration-200 content-center no-drag-region"
+							className="px-4 py-3 group hover:bg-blue-950 transition-all duration-200 
+												content-center no-drag-region"
+							onClick={minimizeApp}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
+								className="size-5 group-hover:stroke-blue-600 group-hover:scale-125 
+													transition-all duration-200 "
 								fill="none"
 								viewBox="0 0 24 24"
-								strokeWidth={3}
 								stroke="currentColor"
-								className="size-5 group-hover:stroke-blue-600 group-hover:scale-125 transition-all duration-200"
+								strokeWidth={3}
 							>
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									d="M5 12h14"
+									d="M19 9l-7 7-7-7"
 								/>
 							</svg>
 						</div>
 						<div
 							id="maximizeApp"
-							className="px-4 py-3 group hover:bg-yellow-950 transition-all duration-200 content-center no-drag-region	"
+							className="px-4 py-3 group hover:bg-yellow-950 transition-all duration-200 
+												content-center no-drag-region	"
+							onClick={maximizeApp}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +92,8 @@ export default function HomePage() {
 								viewBox="0 0 24 24"
 								strokeWidth={3}
 								stroke="currentColor"
-								className="size-5 group-hover:stroke-yellow-600 group-hover:scale-125 transition-all duration-200 ease-in-out"
+								className="size-5 group-hover:stroke-yellow-600 group-hover:scale-125 
+													transition-all duration-200 ease-in-out"
 							>
 								<path
 									strokeLinecap="round"
@@ -88,15 +104,18 @@ export default function HomePage() {
 						</div>
 						<div
 							id="closeApp"
-							className="px-4 py-2 group hover:bg-red-950 transition-all duration-200 content-center no-drag-region"
+							className="px-4 py-2 group hover:bg-red-950 transition-all duration-200 
+												content-center no-drag-region"
+							onClick={closeApp}
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
 								viewBox="0 0 24 24"
-								stroke-width="3"
+								strokeWidth={3}
 								stroke="currentColor"
-								className="size-5 group-hover:stroke-red-600 group-hover:scale-125 transition-all duration-200"
+								className="size-5 group-hover:stroke-red-600 group-hover:scale-125 
+													transition-all duration-200"
 							>
 								<path
 									strokeLinecap="round"

@@ -133,36 +133,48 @@ export default function Inputs() {
 							</div>
 						</div>
 
-						<div className="h-20 w-20">
+						<div className="h-20 w-20 relative">
 							<svg
-								viewBox="-10 -10 20 20"
-								className="left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 20 20"
 								style={{ transform: svgStyle.transform }}
 							>
-								<circle
-									cx="0"
-									cy="0"
-									r="9"
-									fill="transparent"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
-								<line
-									x1="0"
-									y1="9"
-									x2="0"
-									y2="0"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
-								<line
-									x1="9"
-									y1="0"
-									x2="-9"
-									y2="0"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
+								<g clip-path="url(#a)">
+									<path
+										stroke="#4B5563"
+										stroke-width="2"
+										d="M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0v-9m9 0H1"
+									/>
+									<mask id="b" fill="#fff">
+										<path d="M14 9a5 5 0 0 0-5 5h1.95A3.05 3.05 0 0 1 14 10.95V9Z" />
+									</mask>
+									<path
+										stroke="#4B5563"
+										stroke-width="2"
+										d="M14 9a5 5 0 0 0-5 5h1.95A3.05 3.05 0 0 1 14 10.95V9Z"
+										mask="url(#b)"
+									/>
+									<mask id="c" fill="#fff">
+										<path d="M11 14a5 5 0 0 0-5-5v1.95A3.05 3.05 0 0 1 9.05 14H11Z" />
+									</mask>
+									<path
+										stroke="#4B5563"
+										stroke-width="2"
+										d="M11 14a5 5 0 0 0-5-5v1.95A3.05 3.05 0 0 1 9.05 14H11Z"
+										mask="url(#c)"
+									/>
+									<path
+										stroke="#0EA5E9"
+										stroke-width="2"
+										d="M11.116 1.07a9 9 0 0 0-2.239 0"
+									/>
+								</g>
+								<defs>
+									<clipPath id="a">
+										<path fill="#fff" d="M0 0h20v20H0z" />
+									</clipPath>
+								</defs>
 							</svg>
 						</div>
 					</div>
