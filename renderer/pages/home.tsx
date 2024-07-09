@@ -26,6 +26,11 @@ export default function HomePage() {
 						labelText="Browser URL"
 						eventName="open-pedals-window"
 					/>
+					<LinkInput
+						url="https://http://localhost:8888/pedalHistory"
+						labelText="Pedal History URL"
+						eventName="open-pedal-history-window"
+					/>
 					<div>
 						<p>Telemetry window controls:</p>
 						<ul>

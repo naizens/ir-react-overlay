@@ -2,6 +2,7 @@ import path from "path";
 import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 import { createWindow } from "./helpers";
+import { execFile } from "child_process";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -66,24 +67,42 @@ let lockableWindows = [];
 		},
 	});
 
-	lockableWindows.push(pedalsWindow); // Hinzufügen des Pedals-Fensters zur Liste der Fenster, die gesperrt werden können
+	lockableWindows.push(pedalsWindow);
 
 	ipcMain.on("open-pedals-window", () => {
 		if (isProd) {
 			pedalsWindow.loadURL("app://./pedals");
-			if (!pedalsWindow.isVisible()) {
-				pedalsWindow.show();
-			} else {
-				pedalsWindow.focus();
-			}
 		} else {
 			pedalsWindow.loadURL(`http://localhost:${port}/pedals`);
-			if (!pedalsWindow.isVisible()) {
-				pedalsWindow.show();
-			} else {
-				pedalsWindow.focus();
-			}
 		}
+		pedalsWindow.show();
+		pedalsWindow.focus();
+	});
+
+	const pedalHistoryWindow = createWindow("inputGraph", {
+		width: 220,
+		height: 100,
+		alwaysOnTop: true,
+		transparent: true,
+		frame: false,
+		show: false,
+		titleBarOverlay: false,
+		webPreferences: {
+			preload: path.join(__dirname, "preload.js"),
+			contextIsolation: true,
+		},
+	});
+
+	lockableWindows.push(pedalHistoryWindow);
+
+	ipcMain.on("open-pedal-history-window", () => {
+		if (isProd) {
+			pedalHistoryWindow.loadURL("app://./pedalHistory");
+		} else {
+			pedalHistoryWindow.loadURL(`http://localhost:${port}/pedalHistory`);
+		}
+		pedalHistoryWindow.show();
+		pedalHistoryWindow.focus();
 	});
 
 	ipcMain.on("lock-all-windows", () => {
@@ -117,6 +136,8 @@ let lockableWindows = [];
 		await mainWindow.loadURL(`http://localhost:${port}/home`);
 	}
 
+	// Pfad zur .exe-Datei
+
 	mainWindow.on("close", () => {
 		lockableWindows.forEach((window) => {
 			if (window) {
@@ -129,6 +150,11 @@ let lockableWindows = [];
 	pedalsWindow.on("close", (event) => {
 		event.preventDefault();
 		pedalsWindow.hide();
+	});
+
+	pedalHistoryWindow.on("close", (event) => {
+		event.preventDefault();
+		pedalHistoryWindow.hide();
 	});
 })();
 

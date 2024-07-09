@@ -20,7 +20,7 @@ export default function Pedals() {
 
 		const fetchTelemetry = async () => {
 			try {
-				const res = await fetch("/api/rtelemetry");
+				const res = await fetch("/api/telemetry");
 				if (!res.ok) {
 					throw new Error("Network response was not ok.");
 				}
@@ -90,80 +90,85 @@ export default function Pedals() {
 				) : telemetry.error ? (
 					<p>{telemetry.error}</p>
 				) : (
-					<div className="flex space-x-0.5 w-full h-full">
-						<div className="flex flex-col items-center space-y-0.5 w-16 h-full">
-							<p className="text-6xl font-bold text-yellow-400">
-								{getGearDisplay()}
-							</p>
-							<p className="text-sm font-semibold">{telemetry.speed} km/h</p>
-						</div>
-						<div className="flex">
-							<div className="flex flex-col items-center w-4">
-								<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
-									<div
-										className="absolute bottom-0 left-0 bg-blue-700"
-										style={{ height: `${telemetry.clutch}%`, width: "100%" }}
-									></div>
-								</div>
-								<p className="text-xs font-bold">
-									{formatPercentage(telemetry.clutch ?? 0)}
+					<div className="flex flex-col space-y-0.5 w-full h-full">
+						<div className="flex space-x-0.5 w-full h-full">
+							<div className="flex flex-col items-center space-y-0.5 min-w-16 h-full">
+								<p className="text-6xl font-bold text-yellow-400">
+									{getGearDisplay()}
 								</p>
+								<p className="text-sm font-semibold">{telemetry.speed} km/h</p>
 							</div>
-							<div className="flex flex-col items-center w-4">
-								<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
-									<div
-										className="absolute bottom-0 left-0 bg-red-700"
-										style={{ height: `${telemetry.brake}%`, width: "100%" }}
-									></div>
+							<div className="flex">
+								<div className="flex flex-col items-center w-4">
+									<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+										<div
+											className="absolute bottom-0 left-0 bg-blue-700"
+											style={{ height: `${telemetry.clutch}%`, width: "100%" }}
+										></div>
+									</div>
+									<p className="text-xs font-bold">
+										{formatPercentage(telemetry.clutch ?? 0)}
+									</p>
 								</div>
-								<p className="text-xs font-bold">
-									{formatPercentage(telemetry.brake ?? 0)}
-								</p>
-							</div>
-							<div className="flex flex-col items-center w-4">
-								<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
-									<div
-										className="absolute bottom-0 left-0 bg-green-700"
-										style={{ height: `${telemetry.throttle}%`, width: "100%" }}
-									></div>
+								<div className="flex flex-col items-center w-4">
+									<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+										<div
+											className="absolute bottom-0 left-0 bg-red-700"
+											style={{ height: `${telemetry.brake}%`, width: "100%" }}
+										></div>
+									</div>
+									<p className="text-xs font-bold">
+										{formatPercentage(telemetry.brake ?? 0)}
+									</p>
 								</div>
-								<p className="text-xs font-bold">
-									{formatPercentage(telemetry.throttle ?? 0)}
-								</p>
+								<div className="flex flex-col items-center w-4">
+									<div className="h-full w-3  overflow-hidden relative bg-slate-700 border-slate-600 border">
+										<div
+											className="absolute bottom-0 left-0 bg-green-700"
+											style={{
+												height: `${telemetry.throttle}%`,
+												width: "100%",
+											}}
+										></div>
+									</div>
+									<p className="text-xs font-bold">
+										{formatPercentage(telemetry.throttle ?? 0)}
+									</p>
+								</div>
 							</div>
-						</div>
 
-						<div className="h-20 w-20">
-							<svg
-								viewBox="-10 -10 20 20"
-								className="left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"
-								style={{ transform: svgStyle.transform }}
-							>
-								<circle
-									cx="0"
-									cy="0"
-									r="9"
-									fill="transparent"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
-								<line
-									x1="0"
-									y1="9"
-									x2="0"
-									y2="0"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
-								<line
-									x1="9"
-									y1="0"
-									x2="-9"
-									y2="0"
-									stroke="#4B5563"
-									strokeWidth="2"
-								/>
-							</svg>
+							<div className="h-20 min-w-20 overflow-hidden">
+								<svg
+									viewBox="-10 -10 20 20"
+									className="left-0 top-0 transform -translate-x-1/2 -translate-y-1/2"
+									style={{ transform: svgStyle.transform }}
+								>
+									<circle
+										cx="0"
+										cy="0"
+										r="9"
+										fill="transparent"
+										stroke="#4B5563"
+										strokeWidth="2"
+									/>
+									<line
+										x1="0"
+										y1="9"
+										x2="0"
+										y2="0"
+										stroke="#4B5563"
+										strokeWidth="2"
+									/>
+									<line
+										x1="9"
+										y1="0"
+										x2="-9"
+										y2="0"
+										stroke="#4B5563"
+										strokeWidth="2"
+									/>
+								</svg>
+							</div>
 						</div>
 					</div>
 				)}
