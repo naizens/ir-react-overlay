@@ -5,20 +5,11 @@ import LinkInput from "./components/linkInput";
 export default function HomePage() {
 	const [error, setError] = React.useState<string | null>(null);
 
-	const openTelemetryWindow = () => {
-		if (window.ipc) {
-			window.ipc.send("open-inputs-window", null);
-		} else {
-			console.error("ipc not available");
-			setError("ipc not available");
-		}
+	const lockAllWindows = () => {
+		window.ipc.send("lock-all-windows", null);
 	};
-
-	const lockTelemetryWindow = () => {
-		window.ipc.send("lock-telemetry-window", null);
-	};
-	const unlockTelemetryWindow = () => {
-		window.ipc.send("unlock-telemetry-window", null);
+	const unlockAllWindows = () => {
+		window.ipc.send("unlock-all-windows", null);
 	};
 
 	return (
@@ -41,14 +32,14 @@ export default function HomePage() {
 							<li>Lock: Prevents the telemetry window from being moved</li>
 							<button
 								className="px-4 py-2 bg-blue-500 text-white rounded-md"
-								onClick={lockTelemetryWindow}
+								onClick={lockAllWindows}
 							>
 								Lock
 							</button>
 							<li>Unlock: Allows the telemetry window to be moved</li>
 							<button
 								className="px-4 py-2 bg-green-500 text-white rounded-md"
-								onClick={unlockTelemetryWindow}
+								onClick={unlockAllWindows}
 							>
 								Unlock
 							</button>

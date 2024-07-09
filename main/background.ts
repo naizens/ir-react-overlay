@@ -12,6 +12,7 @@ if (isProd) {
 }
 
 let port;
+let lockableWindows = [];
 
 (async () => {
 	await app.whenReady();
@@ -65,6 +66,8 @@ let port;
 		},
 	});
 
+	lockableWindows.push(pedalsWindow); // Hinzufügen des Pedals-Fensters zur Liste der Fenster, die gesperrt werden können
+
 	ipcMain.on("open-pedals-window", () => {
 		if (isProd) {
 			pedalsWindow.loadURL("app://./pedals");
@@ -83,21 +86,26 @@ let port;
 		}
 	});
 
-	ipcMain.on("lock-telemetry-window", () => {
-		if (pedalsWindow) {
-			pedalsWindow.setIgnoreMouseEvents(true);
-			pedalsWindow.show(); // Sicherstellen, dass das Fenster angezeigt wird
-			pedalsWindow.focus(); // Fokus auf das Fenster setzen
-			pedalsWindow.setAlwaysOnTop(true); // Immer im Vordergrund
-		}
+	ipcMain.on("lock-all-windows", () => {
+		lockableWindows.forEach((window) => {
+			if (window) {
+				window.setIgnoreMouseEvents(true);
+				window.show();
+				window.focus();
+				window.setAlwaysOnTop(true);
+			}
+		});
 	});
 
-	ipcMain.on("unlock-telemetry-window", () => {
-		if (pedalsWindow) {
-			pedalsWindow.setIgnoreMouseEvents(false);
-			pedalsWindow.show();
-			pedalsWindow.focus();
-		}
+	ipcMain.on("unlock-all-windows", () => {
+		lockableWindows.forEach((window) => {
+			if (window) {
+				window.setIgnoreMouseEvents(false);
+				window.show();
+				window.focus();
+				window.setAlwaysOnTop(true);
+			}
+		});
 	});
 
 	if (isProd) {
@@ -110,9 +118,11 @@ let port;
 	}
 
 	mainWindow.on("close", () => {
-		if (pedalsWindow) {
-			pedalsWindow.destroy();
-		}
+		lockableWindows.forEach((window) => {
+			if (window) {
+				window.destroy();
+			}
+		});
 		app.quit();
 	});
 
