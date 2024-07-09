@@ -51,7 +51,7 @@ let port;
 		mainWindow.setAlwaysOnTop(false);
 	});
 
-	const inputsWindow = createWindow("inputs", {
+	const pedalsWindow = createWindow("pedals", {
 		width: 220,
 		height: 100,
 		alwaysOnTop: true,
@@ -65,38 +65,38 @@ let port;
 		},
 	});
 
-	ipcMain.on("open-inputs-window", () => {
+	ipcMain.on("open-pedals-window", () => {
 		if (isProd) {
-			inputsWindow.loadURL("app://./inputs");
-			if (!inputsWindow.isVisible()) {
-				inputsWindow.show();
+			pedalsWindow.loadURL("app://./pedals");
+			if (!pedalsWindow.isVisible()) {
+				pedalsWindow.show();
 			} else {
-				inputsWindow.focus();
+				pedalsWindow.focus();
 			}
 		} else {
-			inputsWindow.loadURL(`http://localhost:${port}/inputs`);
-			if (!inputsWindow.isVisible()) {
-				inputsWindow.show();
+			pedalsWindow.loadURL(`http://localhost:${port}/pedals`);
+			if (!pedalsWindow.isVisible()) {
+				pedalsWindow.show();
 			} else {
-				inputsWindow.focus();
+				pedalsWindow.focus();
 			}
 		}
 	});
 
 	ipcMain.on("lock-telemetry-window", () => {
-		if (inputsWindow) {
-			inputsWindow.setIgnoreMouseEvents(true);
-			inputsWindow.show(); // Sicherstellen, dass das Fenster angezeigt wird
-			inputsWindow.focus(); // Fokus auf das Fenster setzen
-			inputsWindow.setAlwaysOnTop(true); // Immer im Vordergrund
+		if (pedalsWindow) {
+			pedalsWindow.setIgnoreMouseEvents(true);
+			pedalsWindow.show(); // Sicherstellen, dass das Fenster angezeigt wird
+			pedalsWindow.focus(); // Fokus auf das Fenster setzen
+			pedalsWindow.setAlwaysOnTop(true); // Immer im Vordergrund
 		}
 	});
 
 	ipcMain.on("unlock-telemetry-window", () => {
-		if (inputsWindow) {
-			inputsWindow.setIgnoreMouseEvents(false);
-			inputsWindow.show();
-			inputsWindow.focus();
+		if (pedalsWindow) {
+			pedalsWindow.setIgnoreMouseEvents(false);
+			pedalsWindow.show();
+			pedalsWindow.focus();
 		}
 	});
 
@@ -110,15 +110,15 @@ let port;
 	}
 
 	mainWindow.on("close", () => {
-		if (inputsWindow) {
-			inputsWindow.destroy();
+		if (pedalsWindow) {
+			pedalsWindow.destroy();
 		}
 		app.quit();
 	});
 
-	inputsWindow.on("close", (event) => {
+	pedalsWindow.on("close", (event) => {
 		event.preventDefault();
-		inputsWindow.hide();
+		pedalsWindow.hide();
 	});
 })();
 

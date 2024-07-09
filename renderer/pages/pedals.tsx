@@ -11,7 +11,7 @@ interface TelemetryData {
 	error?: string;
 }
 
-export default function Inputs() {
+export default function Pedals() {
 	const [telemetry, setTelemetry] = useState<TelemetryData>({});
 	const [loading, setLoading] = useState(true);
 
@@ -20,7 +20,7 @@ export default function Inputs() {
 
 		const fetchTelemetry = async () => {
 			try {
-				const res = await fetch("/api/telemetry");
+				const res = await fetch("/api/rtelemetry");
 				if (!res.ok) {
 					throw new Error("Network response was not ok.");
 				}

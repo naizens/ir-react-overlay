@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import LinkInput from "./components/linkInput";
 
 export default function HomePage() {
 	const [error, setError] = React.useState<string | null>(null);
@@ -29,37 +30,11 @@ export default function HomePage() {
 			<div className="text-black w-screen h-screen">
 				{error && <p>Error: {error}</p>}
 				<div className="flex flex-col space-y-3 w-full p-4">
-					<div className="flex h-10 w-full rounded-md overflow-hidden border">
-						<span className="bg-slate-500 text-base text-center text-nowrap h-full place-content-center p-1">
-							Browser URL
-						</span>
-						<input
-							type="url"
-							className="w-full px-2 font-normal"
-							value="http://localhost:8888/inputs"
-							readOnly
-						></input>
-						<button
-							title="Open overlay"
-							className="bg-slate-500 w-fit h-full p-1"
-							onClick={openTelemetryWindow}
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth="2"
-								stroke="currentColor"
-								className="size-6"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-								/>
-							</svg>
-						</button>
-					</div>
+					<LinkInput
+						url="https://http://localhost:8888/inputs"
+						labelText="Browser URL"
+						eventName="open-pedals-window"
+					/>
 					<div>
 						<p>Telemetry window controls:</p>
 						<ul>
